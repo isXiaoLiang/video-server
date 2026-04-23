@@ -25,7 +25,7 @@
     <!-- 操作按钮 -->
     <div class="video-actions">
       <el-button type="primary" size="small" @click="handleShowQrcode">
-        <el-icon><Qrcode /></el-icon>
+        <el-icon><Grid /></el-icon>
         二维码
       </el-button>
       <el-button type="danger" size="small" @click="handleDelete">
@@ -38,7 +38,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { Delete, Qrcode } from '@element-plus/icons-vue'
+import { Delete, Grid } from '@element-plus/icons-vue'
 import Hls from 'hls.js'
 
 const props = defineProps({
