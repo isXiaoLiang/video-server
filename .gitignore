@@ -22,6 +22,9 @@ build/
 **/dist/
 **/build/
 
+# Release packages
+release/
+
 # IDE & Editor
 .claude/
 .vscode/

@@ -18,6 +18,10 @@ app.use('/videos', express.static(path.join(__dirname, '../videos')));
 // 静态文件服务 - HLS视频流文件
 app.use('/hls', express.static(path.join(__dirname, '../videos/hls')));
 
+// 静态文件服务 - 前端构建产物
+const frontendPath = path.join(__dirname, process.env.FRONTEND_DIR || '../frontend/dist');
+app.use(express.static(frontendPath));
+
 // API路由
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/videos', require('./routes/videos'));
@@ -199,9 +203,9 @@ app.get('/watch/:id', async (req, res) => {
   }
 });
 
-// 首页路由
-app.get('/', (req, res) => {
-  res.json({ message: 'Video Service API', version: '1.0.0' });
+// SPA 路由回退 - 所有未匹配的GET请求返回前端 index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 // 错误处理中间件
