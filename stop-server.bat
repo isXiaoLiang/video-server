@@ -5,15 +5,18 @@ echo   停止视频服务
 echo ========================================
 echo.
 
+:: 切换到脚本所在目录
+cd /d "%~dp0"
+
 :: 查找并终止占用 3000 端口的进程
 echo [查找] 正在查找占用 3000 端口的进程...
 for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000 ^| findstr LISTENING') do (
     echo [终止] 发现进程 PID: %%a
     taskkill /PID %%a /F >nul 2>&1
-    if %errorlevel% equ 0 (
+    if !errorlevel! equ 0 (
         echo [成功] 进程 %%a 已终止
     ) else (
-        echo [失败] 无法终止进程 %%a，可能需要管理员权限
+        echo [提示] 无法终止进程 %%a，可能需要管理员权限
     )
 )
 
